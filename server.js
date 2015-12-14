@@ -54,6 +54,7 @@ function handleRequest(request, response){
                 });
                 r.on('end', function(){
                     //Resolving with json parsed string
+                    console.log(str);
                     str = JSON.parse(str);
                     final.text = str.response.verses[0].text;
                     final.reference = str.response.verses[0].reference;
@@ -76,6 +77,6 @@ function handleRequest(request, response){
 var server = http.createServer(handleRequest);
 
 //Lets start our server
-server.listen(PORT, function(){
-    console.log("Server listening on: http://localhost:%s", PORT);
+server.listen(constants.port, function(){
+    console.log("Server listening on: http://localhost:%s", constants.port);
 });      
