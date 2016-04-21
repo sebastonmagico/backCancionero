@@ -8,6 +8,14 @@ var Buffer = require('buffer').Buffer;
 var psamls = require('./psalms.js');
 var constants = require('./constants.js');
 
+var html_strip = require('htmlstrip-native');
+var htmlStripOptions = {
+    include_script : false,
+    include_style : false,
+    compact_whitespace : true,
+    include_attributes : { 'p': true }
+};
+
 var auth = new Buffer(constants.token).toString('base64');
 
 var options = {
@@ -54,12 +62,13 @@ function handleRequest(request, response){
                 });
                 r.on('end', function(){
                     //Resolving with json parsed string
-                    console.log(str);
                     str = JSON.parse(str);
-                    final.text = str.response.verses[0].text;
+                    console.log('############################');
+                    final.text = html_strip.html_strip(str.response.verses[0].text.replace(/[0-9]/g, ''),htmlStripOptions);   
                     final.reference = str.response.verses[0].reference;
+                    console.log(final.text);
+                    console.log('############################');
                     response.write(JSON.stringify(final));
-                    console.log(options.path);
                     response.end();
                 })
             }).end();

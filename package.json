@@ -1,10 +1,12 @@
 {
   "name": "cancionero_back",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "htmlstrip-native": "^0.1.3"
+  },
   "repository": {},
   "devDependencies": {
-    "base-64":"*"
+    "base-64": "*"
   },
   "engines": {
     "node": ">=0.10.0"
